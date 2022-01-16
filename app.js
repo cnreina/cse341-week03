@@ -33,21 +33,22 @@
 */
 
 // includes
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors')
+const express         = require('express');
+const bodyParser      = require('body-parser');
+const mongoose        = require('mongoose');
+const path            = require('path');
+const fs              = require('fs');
+const cors            = require('cors')
 
+const APP_CWD         = process.cwd();
 const LOCAL_PORT      = 3000;
 const HEROKU_APP_URL  = "https://cse341nodejsapp.herokuapp.com/";
 const CORS_OPTIONS    = { origin: HEROKU_APP_URL, optionsSuccessStatus: 200 };
-const FILE_PATH       = path.join(path.dirname(process.mainModule.filename), 'data', 'mongodbstring.txt');
+const FILE_PATH       = APP_CWD + '/data/mongodbstring.txt';
 
 // routes
-const errorRoutes = require('./routes/errorRoutes');
-const itemRoutes = require('./routes/itemRoutes');
+const errorRoutes     = require(APP_CWD + '/routes/errorRoutes');
+const itemRoutes      = require(APP_CWD + '/routes/itemRoutes');
 
 // app
 const app = express();
@@ -65,7 +66,7 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     console.log(err);
   } else {
     // START SERVER
-    const mongoDbOptions = {
+    const MONGODB_OPTIONS = {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       family: 4
@@ -74,7 +75,7 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     // When app is run on Heroku, process.env.PORT is defined and passed to .listen().
     const MONGODB_URL = process.env.MONGODB_URL || fileContent.toString();
     const PORT = process.env.PORT || LOCAL_PORT;
-    mongoose.connect(MONGODB_URL, mongoDbOptions)
+    mongoose.connect(MONGODB_URL, MONGODB_OPTIONS)
     .then(result => {
       app.listen(PORT);
     })

@@ -1,5 +1,6 @@
 // instantiate Item
-const Item = require('../models/itemSchema');
+const APP_CWD = process.cwd();
+const Item = require(APP_CWD + '/models/itemSchema');
 
 let errorsArray = []
 let itemTagsArray = []

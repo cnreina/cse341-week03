@@ -1,6 +1,6 @@
-const path = require('path');
 const express = require('express');
-const itemController = require('../controllers/itemController');
+const APP_CWD = process.cwd();
+const itemController = require(APP_CWD + '/controllers/itemController');
 const router = express.Router();
 
 router.get('/', itemController.getIndex);

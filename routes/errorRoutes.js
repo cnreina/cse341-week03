@@ -1,6 +1,6 @@
-const path = require('path');
 const express = require('express');
-const errorController = require('../controllers/errorController');
+const APP_CWD = process.cwd();
+const errorController = require(APP_CWD + '/controllers/errorController');
 const router = express.Router();
 
 router.use('/', errorController.error404);
