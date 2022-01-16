@@ -1,0 +1,34 @@
+VSCode snippets:
+njs functions
+class
+array
+objects
+json
+
+VSCode tasks:
+heroku
+npm
+mongodb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
