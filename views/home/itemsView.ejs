@@ -1,8 +1,10 @@
-<%- include('../includes/headInclude.ejs') %>
-    <link rel="stylesheet" href="/css/item.css">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../includes/headInclude.ejs') %>
     </head>
-
     <body>
+        <div class="backdrop"></div>
         <%- include('../includes/navigationInclude.ejs') %>
             <main>
                 <div class="filter">
@@ -67,5 +69,5 @@
             errorAlert('<%= errorsArray %>');
             </script>
         <% } %>
-
-    <%- include('../includes/endInclude.ejs') %>
+    </body>
+</html>
