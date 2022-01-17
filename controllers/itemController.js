@@ -1,3 +1,4 @@
+
 // instantiate Item
 const APP_CWD = process.cwd();
 const Item = require(APP_CWD + '/models/itemSchema');
@@ -46,9 +47,8 @@ exports.getAllItems = (req, res, next) => {
 };
 
 exports.getItemByUUID = (req, res, next) => {
-  const itemUUID = req.param.itemuuid;
-  console.log(itemUUID);
-  Item.find({uuid: itemUUID})
+  const itemUUID = req.params.itemuuid;
+  Item.findOne({uuid: itemUUID})
     .then(item => {
       res.render('home/itemDetailView', {
         item: item,

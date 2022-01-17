@@ -27,5 +27,7 @@
 }
 
 .item__tags {
-    text-align: center;
+    text-align: justify;
+    font-size: smaller;
+    color: gray;
 }

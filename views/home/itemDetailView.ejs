@@ -6,7 +6,7 @@
     <body>
         <%- include('../includes/navigationInclude.ejs') %>
         <main class="centered">
-          <% if (item.length > 0) { %>
+          <% if (item) { %>
             <div class="grid">
               <article class="card item">
                   <header class="card__header">
@@ -25,12 +25,9 @@
                           <%= item.description %>
                       </p>
                   </div>
-                  <div class="card__content">
-                      <p class="item__description">ID: <%= item.uuid %> </p>
-                  </div>
-                  <% if(item.tags && item.tags.length > 0){ %>
+                  <% if(item.tags){ %>
                       <div class="card__content">
-                          <p class="item__description">Tags: <%= item.tags %> </p>
+                          <p class="item__tags">Tags: <%= item.tags %> </p>
                       </div>
                   <% } %>
               </article>

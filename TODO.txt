@@ -1,3 +1,18 @@
+vscode autocomplete
+
+display item details
+user
+cart
+
+
+refactor filter by tag > drop-down with all tags.
+refactor Item view > hide ID
+
+Edit and load items to db from file > check for and add uuid.
+
+
+-------------------------------------------------
+
 VSCode snippets:
 njs functions
 class
@@ -5,12 +20,9 @@ array
 objects
 json
 
-VSCode tasks:
-heroku
-npm
-mongodb
 
-
+VSCode Tasks:
+app generator > https://expressjs.com/en/starter/generator.html
 
 
 

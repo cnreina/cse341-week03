@@ -47,12 +47,9 @@
                                         <%= item.description %>
                                     </p>
                                 </div>
-                                <div class="card__content">
-                                    <p class="item__description">ID: <%= item.uuid %> </p>
-                                </div>
                                 <% if(item.tags.length > 0){ %>
                                     <div class="card__content">
-                                        <p class="item__description">Tags: <%= item.tags %> </p>
+                                        <p class="item__tags">Tags: <%= item.tags %> </p>
                                     </div>
                                 <% } %>
                             </article>

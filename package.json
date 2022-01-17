@@ -10,6 +10,7 @@
   "author": "Carlos N Reina",
   "license": "",
   "devDependencies": {
+    "@types/node": "^17.0.9",
     "nodemon": "^1.18.3"
   },
   "dependencies": {
@@ -23,5 +24,13 @@
   },
   "engines": {
     "node": "16.13.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnreina/cse341-week03.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cnreina/cse341-week03/issues"
+  },
+  "homepage": "https://github.com/cnreina/cse341-week03#readme"
 }
