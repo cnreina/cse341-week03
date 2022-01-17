@@ -38,7 +38,8 @@ const bodyParser      = require('body-parser');
 const mongoose        = require('mongoose');
 const path            = require('path');
 const fs              = require('fs');
-const cors            = require('cors')
+const cors            = require('cors');
+const { insertUUIDtoAllItems } = require('./controllers/itemController');
 
 const APP_CWD         = process.cwd();
 const LOCAL_PORT      = 3000;
@@ -77,6 +78,8 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     const PORT = process.env.PORT || LOCAL_PORT;
     mongoose.connect(MONGODB_URL, MONGODB_OPTIONS)
     .then(result => {
+      // const uuids = insertUUIDtoAllItems();
+      // console.log(uuids);
       app.listen(PORT);
     })
     .catch(err => {
@@ -84,3 +87,8 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     });
   }
 });
+
+// Item.updateMany({}, { uuid: cryptoController.getNewUUID() })
+//   .then(changed => {
+//     console.log('CHANGE: ', changed);
+//   });

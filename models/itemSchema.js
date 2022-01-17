@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 const itemSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
   tags: {
     type: Array,
     required: true
@@ -25,7 +21,11 @@ const itemSchema = new Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  uuid: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('Item', itemSchema);

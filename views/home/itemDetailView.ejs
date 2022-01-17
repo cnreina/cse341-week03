@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../includes/headInclude.ejs') %>
+  </head>
+    <body>
+        <%- include('../includes/navigationInclude.ejs') %>
+        <main class="centered">
+            <h1><%= item.name %></h1>
+            <hr>
+            <div class="image">
+                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+            </div>
+            <h2><%= item.price %></h2>
+            <p><%= item.description %></p>
+        </main>
+    </body>
+</html>

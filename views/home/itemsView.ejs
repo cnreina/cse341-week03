@@ -33,7 +33,7 @@
                             <article class="card item">
                                 <header class="card__header">
                                     <h1 class="item__name">
-                                        <%= item.name %>
+                                        <a href="/item-list/<%= item.uuid %>"><%= item.name %></a>
                                     </h1>
                                 </header>
                                 <div class="card__image">
@@ -46,6 +46,9 @@
                                     <p class="item__description">
                                         <%= item.description %>
                                     </p>
+                                </div>
+                                <div class="card__content">
+                                    <p class="item__description">ID: <%= item.uuid %> </p>
                                 </div>
                                 <% if(item.tags.length > 0){ %>
                                     <div class="card__content">
