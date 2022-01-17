@@ -46,17 +46,18 @@ exports.getAllItems = (req, res, next) => {
 };
 
 exports.getItemByUUID = (req, res, next) => {
-  const itemUUID = req.params.uuid;
+  const itemUUID = req.param.itemuuid;
+  console.log(itemUUID);
   Item.find({uuid: itemUUID})
     .then(item => {
       res.render('home/itemDetailView', {
         item: item,
         pageTitle: 'Item',
         path: '/item-list',
-        errorsArray : errorsArray,
-        errorsArrayCount : errorsArray.length,
+        errorsArray: errorsArray,
+        errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
-        itemTagsArrayCount : itemTagsArray.length
+        itemTagsArrayCount: itemTagsArray.length
       });
     })
     .catch(err => {

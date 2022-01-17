@@ -6,13 +6,38 @@
     <body>
         <%- include('../includes/navigationInclude.ejs') %>
         <main class="centered">
-            <h1><%= item.name %></h1>
-            <hr>
-            <div class="image">
-                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+          <% if (item.length > 0) { %>
+            <div class="grid">
+              <article class="card item">
+                  <header class="card__header">
+                      <h1 class="item__name">
+                        <%= item.name %>
+                      </h1>
+                  </header>
+                  <div class="card__image">
+                      <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                  </div>
+                  <div class="card__content">
+                      <h2 class="item__price">$
+                          <%= item.price %>
+                      </h2>
+                      <p class="item__description">
+                          <%= item.description %>
+                      </p>
+                  </div>
+                  <div class="card__content">
+                      <p class="item__description">ID: <%= item.uuid %> </p>
+                  </div>
+                  <% if(item.tags && item.tags.length > 0){ %>
+                      <div class="card__content">
+                          <p class="item__description">Tags: <%= item.tags %> </p>
+                      </div>
+                  <% } %>
+              </article>
             </div>
-            <h2><%= item.price %></h2>
-            <p><%= item.description %></p>
+        <% } else { %>
+            <h1>No item Found!</h1>
+        <% } %>
         </main>
     </body>
 </html>
