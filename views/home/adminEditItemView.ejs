@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../includes/headInclude.ejs') %>
+  </head>
+    <body>
+        <%- include('../includes/navigationInclude.ejs') %>
+        <main class="centered">
+          <% if (item) { %>
+            <div class="grid">
+                <article class="card item">
+                    <header class="card__header">
+                        <h1 class="item__name">
+                            <%= item.name %>
+                        </h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                    </div>
+                    <div class="card__content">
+                        <h2 class="item__price">$
+                            <%= item.price %>
+                        </h2>
+                        <p class="item__description">
+                            <%= item.description %>
+                        </p>
+                    </div>
+                    <% if(item.tags){ %>
+                        <div class="card__content">
+                            <p class="item__tags">Tags: <%= item.tags %> </p>
+                        </div>
+                    <% } %>
+                </article>
+
+                <article class="card item">
+                    <form class="item-form" action="/admin/update-item" method="POST">
+                        <div class="form-control">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" value="<%= item.name %>">
+                        </div>
+                        <div class="form-control">
+                            <label for="imageUrl">Image URL</label>
+                            <input type="text" name="imageUrl" id="imageUrl" value="<%= item.imageUrl %>">
+                        </div>
+                        <div class="form-control">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" id="price" step="0.01" value="<%= item.price %>">
+                        </div>
+                        <div class="form-control">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" rows="5"><%= item.description %></textarea>
+                        </div>
+                        <div class="form-control">
+                            <label for="tags">Tags</label>
+                            <textarea name="tags" id="tags" rows="2"><%= item.tags %></textarea>
+                        </div>
+                        <div class="form-control">
+                            <input type="hidden" value="<%= item.uuid %>" name="itemuuid">
+                            <button class="btn" type="submit">Update Item</button>
+                        </div>
+                    </form>
+                </article>
+
+            </div>
+        <% } else { %>
+            <h1>No item Found!</h1>
+        <% } %>
+        </main>
+    </body>
+</html>

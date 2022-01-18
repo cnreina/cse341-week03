@@ -1,9 +1,5 @@
-vscode autocomplete
-
-display item details
-user
+user > user role
 cart
-
 
 refactor filter by tag > drop-down with all tags.
 refactor Item view > hide ID

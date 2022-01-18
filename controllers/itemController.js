@@ -1,3 +1,5 @@
+// includes
+const mongoose = require('mongoose');
 
 // instantiate Item
 const APP_CWD = process.cwd();
@@ -8,16 +10,15 @@ let itemTagsArray = []
 
 exports.getHome = (req, res, next) => {
   errorsArray.length = 0;
-  Item.find()
-    .then(items => {
+  Item.find().then(items => {
       res.render('home/indexView', {
         items: items,
         pageTitle: 'Home',
         path: '/',
         errorsArray: errorsArray,
-        errorsArrayCount : errorsArray.length,
+        errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
-        itemTagsArrayCount : itemTagsArray.length
+        itemTagsArrayCount: itemTagsArray.length
       });
     })
     .catch(err => {
@@ -28,16 +29,15 @@ exports.getHome = (req, res, next) => {
 
 exports.getAllItems = (req, res, next) => {
   errorsArray.length = 0;
-  Item.find()
-    .then(items => {
+  Item.find().then(items => {
       res.render('home/itemsView', {
         items: items,
         pageTitle: 'All items',
         path: '/item-list',
-        errorsArray : errorsArray,
-        errorsArrayCount : errorsArray.length,
+        errorsArray: errorsArray,
+        errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
-        itemTagsArrayCount : itemTagsArray.length
+        itemTagsArrayCount: itemTagsArray.length
       });
     })
     .catch(err => {
@@ -48,8 +48,7 @@ exports.getAllItems = (req, res, next) => {
 
 exports.getItemByUUID = (req, res, next) => {
   const itemUUID = req.params.itemuuid;
-  Item.findOne({uuid: itemUUID})
-    .then(item => {
+  Item.findOne({uuid: itemUUID}).then(item => {
       res.render('home/itemDetailView', {
         item: item,
         pageTitle: 'Item',
