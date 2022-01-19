@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../includes/headInclude.ejs') %>
+  </head>
+    <body>
+        <%- include('../includes/navigationInclude.ejs') %>
+        <main class="centered">
+          <% if (item) { %>
+            <div class="grid">
+              <article class="card item">
+                  <header class="card__header">
+                      <h1 class="item__name">
+                        <%= item.name %>
+                      </h1>
+                  </header>
+                  <div class="card__image">
+                      <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                  </div>
+                  <div class="card__content">
+                      <h2 class="item__price">$
+                          <%= item.price %>
+                      </h2>
+                      <p class="item__description">
+                          <%= item.description %>
+                      </p>
+                  </div>
+                  <% if(item.tags){ %>
+                      <div class="card__content">
+                          <p class="item__tags">Tags: <%= item.tags %> </p>
+                      </div>
+                  <% } %>
+                  <div class="card__actions">
+                    <a href="/admin/edit-item/<%= item.uuid %>?edit=true" class="btn">Edit</a>
+                    <form action="/admin/delete-item" method="POST">
+                        <input type="hidden" value="<%= item.uuid %>" name="itemuuid">
+                        <button class="btn" type="submit">Delete</button>
+                    </form>
+                </div>
+              </article>
+            </div>
+        <% } else { %>
+            <h1>No item Found!</h1>
+        <% } %>
+        </main>
+    </body>
+</html>

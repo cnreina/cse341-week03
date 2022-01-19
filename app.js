@@ -50,6 +50,7 @@ const FILE_PATH       = APP_CWD + '/data/mongodbstring.txt';
 const errorRoutes     = require(APP_CWD + '/routes/errorRoutes');
 const itemRoutes      = require(APP_CWD + '/routes/itemRoutes');
 const adminRoutes     = require(APP_CWD + '/routes/adminRoutes');
+const userRoutes     = require(APP_CWD + '/routes/userRoutes');
 
 // app
 const app = express();
@@ -59,6 +60,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(itemRoutes);
 app.use(adminRoutes);
+app.use(userRoutes);
 app.use(errorRoutes);
 app.use(cors(CORS_OPTIONS));
 

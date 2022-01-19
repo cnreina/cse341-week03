@@ -2,7 +2,8 @@ user > user role
 cart
 
 refactor filter by tag > drop-down with all tags.
-refactor Item view > hide ID
+refactor edit Item > close button.
+refactor item class > include 'active' boolean > filter out in normal views > display in admin views with 'make active' button.
 
 Edit and load items to db from file > check for and add uuid.
 

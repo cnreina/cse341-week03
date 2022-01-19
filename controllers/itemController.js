@@ -3,18 +3,18 @@ const mongoose = require('mongoose');
 
 // instantiate Item
 const APP_CWD = process.cwd();
-const Item = require(APP_CWD + '/models/itemSchema');
+const Item    = require(APP_CWD + '/models/itemSchema');
 
-let errorsArray = []
-let itemTagsArray = []
+let errorsArray   = [];
+let itemTagsArray = [];
 
 exports.getHome = (req, res, next) => {
   errorsArray.length = 0;
   Item.find().then(items => {
-      res.render('home/indexView', {
+      res.render('homeViews/indexView', {
         items: items,
         pageTitle: 'Home',
-        path: '/',
+        path: '/store',
         errorsArray: errorsArray,
         errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
@@ -27,13 +27,18 @@ exports.getHome = (req, res, next) => {
     });
 };
 
+/*	getAllItems
+  Item.find()
+  .select('title price -_id')
+  .populate('userId', 'name')
+*/
 exports.getAllItems = (req, res, next) => {
   errorsArray.length = 0;
   Item.find().then(items => {
-      res.render('home/itemsView', {
+      res.render('storeViews/itemsView', {
         items: items,
         pageTitle: 'All items',
-        path: '/item-list',
+        path: '/store/item-list',
         errorsArray: errorsArray,
         errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
@@ -49,10 +54,10 @@ exports.getAllItems = (req, res, next) => {
 exports.getItemByUUID = (req, res, next) => {
   const itemUUID = req.params.itemuuid;
   Item.findOne({uuid: itemUUID}).then(item => {
-      res.render('home/itemDetailView', {
+      res.render('storeViews/itemDetailView', {
         item: item,
         pageTitle: 'Item',
-        path: '/item-list',
+        path: '/store/item-list',
         errorsArray: errorsArray,
         errorsArrayCount: errorsArray.length,
         itemTagsArray: itemTagsArray,
@@ -71,7 +76,7 @@ exports.filterItemsByTag = (req, res, next) => {
   if (itemTagsArray[0] === '') {
     itemTagsArray.length = 0
   };
-  res.redirect('/item-list');
+  res.redirect('/store/item-list');
 };
 
 exports.insertUUIDtoAllItems = () => {

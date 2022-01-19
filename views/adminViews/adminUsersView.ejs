@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../includes/headInclude.ejs') %>
+    </head>
+    <body>
+        <div class="backdrop"></div>
+        <%- include('../includes/navigationInclude.ejs') %>
+            <main>
+                <% if (users) { %>
+                    <div class="grid">
+                        <% for (let user of users) { %>
+                            <article class="card item">
+                                <header class="card__header">
+                                    <h1 class="item__name">
+                                        <a href="/admin/user-list/<%= user.uuid %>"><%= user.name %></a>
+                                    </h1>
+                                </header>
+                                <div class="card__content">
+                                    <p class="item__description">Email: <%= user.email %></p>
+                                    <p class="item__description">Role: <%= user.role %></p>
+                                </div>
+                                <% if(user.cart){ %>
+                                    <div class="card__content">
+                                        <p class="item__tags">Cart: <%= user.cart %> </p>
+                                    </div>
+                                <% } %>
+                                <div class="card__actions">
+                                    <a href="/admin/edit-user/<%= user.uuid %>?edit=true" class="btn">Edit</a>
+                                    <form action="/admin/delete-user" method="POST">
+                                        <input type="hidden" value="<%= user.uuid %>" name="useruuid">
+                                        <button class="btn" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </article>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <h1>No Users Found!</h1>
+                <% } %>
+            </main>
+        
+        <!-- load javascript files -->
+        <% include('../includes/scriptsInclude.ejs') %>
+
+        <!-- display errors -->
+        <% if(errorsArray.length > 0){ %>
+            <script>
+            errorAlert('<%= errorsArray %>');
+            </script>
+        <% } %>
+    </body>
+</html>
+

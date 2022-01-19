@@ -3,6 +3,6 @@ const APP_CWD = process.cwd();
 const errorController = require(APP_CWD + '/controllers/errorController');
 const router = express.Router();
 
-router.use('/', errorController.error404);
+router.use('/store', errorController.error404);
 
 module.exports = router;

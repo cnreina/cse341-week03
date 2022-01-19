@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../includes/headInclude.ejs') %>
+  </head>
+    <body>
+        <%- include('../includes/navigationInclude.ejs') %>
+        <main class="centered">
+            <div class="grid">
+                <article class="card item">
+                    <form class="item-form" action="/admin/save-newuser" method="POST">
+                        <div class="form-control">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" value="">
+                        </div>
+                        <div class="form-control">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" value="">
+                        </div>
+                        <div class="form-control">
+                            <label for="role">Role</label>
+                            <input type="text" name="role" id="role" value="">
+                        </div>
+                        <div class="form-control">
+                            <button class="btn" type="submit">Save New User</button>
+                        </div>
+                    </form>
+                </article>
+
+            </div>
+        </main>
+    </body>
+</html>

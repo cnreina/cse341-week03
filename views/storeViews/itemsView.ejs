@@ -9,7 +9,7 @@
             <main>
                 <div class="filter">
                     <div class="filter_form_container">
-                        <form method="POST" action="/filter-by-tag" class="filter_form">
+                        <form method="POST" action="/store/filter-by-tag" class="filter_form">
                         <input type="text" name="itemTag" placeholder='Tag'>
                         <button type="submit" value="Submit">Submit-Reset</button>
                         </form>
@@ -33,7 +33,7 @@
                             <article class="card item">
                                 <header class="card__header">
                                     <h1 class="item__name">
-                                        <a href="/item-list/<%= item.uuid %>"><%= item.name %></a>
+                                        <a href="/store/item-list/<%= item.uuid %>"><%= item.name %></a>
                                     </h1>
                                 </header>
                                 <div class="card__image">
@@ -52,13 +52,6 @@
                                         <p class="item__tags">Tags: <%= item.tags %> </p>
                                     </div>
                                 <% } %>
-                                <div class="card__actions">
-                                    <a href="/admin/edit-item/<%= item.uuid %>?edit=true" class="btn">Edit</a>
-                                    <form action="/admin/delete-item" method="POST">
-                                        <input type="hidden" value="<%= item.uuid %>" name="itemuuid">
-                                        <button class="btn" type="submit">Delete</button>
-                                    </form>
-                                </div>
                             </article>
                         <% } %>
                     </div>

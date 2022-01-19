@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+/*	CLASS Item */
 
-const Schema = mongoose.Schema;
+const mongoose  = require('mongoose');
+const Schema    = mongoose.Schema;
+
 const itemSchema = new Schema({
   tags: {
     type: Array,
