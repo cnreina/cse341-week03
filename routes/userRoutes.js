@@ -4,9 +4,11 @@ const userController = require(APP_CWD + '/controllers/userController');
 const router = express.Router();
 
 router.get('/user', userController.userView);
-router.post('/user/add-cartitem', userController.addCartItemByUUID);
-router.get('/user/edit-cartitem/:itemuuid', userController.editCartItemByUUID);
-router.post('/user/update-cartitem', userController.updateCartItemByUUID);
-router.post('/user/remove-cartitem', userController.removeCartItemByUUID);
+router.get('/user/cart', userController.userCartView);
+router.get('/user/cart/edit-item/:itemuuid', userController.editCartItemView);
+
+router.post('/user/add-item', userController.addCartItemByUUID);
+router.post('/user/cart/update-item', userController.updateCartItemByUUID);
+router.post('/user/cart/remove-item', userController.removeCartItemByUUID);
 
 module.exports = router;

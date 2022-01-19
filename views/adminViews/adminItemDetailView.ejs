@@ -30,6 +30,9 @@
                           <p class="item__tags">Tags: <%= item.tags %> </p>
                       </div>
                   <% } %>
+                  <div class="card__content">
+                    <p class="item__tags">Status: <%= item.status %> </p>
+                  </div>
                   <div class="card__actions">
                     <a href="/admin/edit-item/<%= item.uuid %>?edit=true" class="btn">Edit</a>
                     <form action="/admin/delete-item" method="POST">

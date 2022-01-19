@@ -1,4 +1,3 @@
-user > user role
 cart
 
 refactor filter by tag > drop-down with all tags.

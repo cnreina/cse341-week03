@@ -13,12 +13,13 @@
                             <article class="card item">
                                 <header class="card__header">
                                     <h1 class="item__name">
-                                        <a href="/admin/user-list/<%= user.uuid %>"><%= user.name %></a>
+                                        <%= user.name %>
                                     </h1>
                                 </header>
                                 <div class="card__content">
                                     <p class="item__description">Email: <%= user.email %></p>
                                     <p class="item__description">Role: <%= user.role %></p>
+                                    <p class="item__description">Status: <%= user.status %></p>
                                 </div>
                                 <% if(user.cart){ %>
                                     <div class="card__content">

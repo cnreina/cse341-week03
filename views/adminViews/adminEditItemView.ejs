@@ -30,6 +30,9 @@
                             <p class="item__tags">Tags: <%= item.tags %> </p>
                         </div>
                     <% } %>
+                    <div class="card__content">
+                        <p class="item__tags">Status: <%= item.status %> </p>
+                    </div>
                 </article>
 
                 <article class="card item">
@@ -53,6 +56,10 @@
                         <div class="form-control">
                             <label for="tags">Tags</label>
                             <textarea name="tags" id="tags" rows="2"><%= item.tags %></textarea>
+                        </div>
+                        <div class="form-control">
+                            <label for="status">Status</label>
+                            <textarea name="status" id="status" rows="1"><%= item.status %></textarea>
                         </div>
                         <div class="form-control">
                             <input type="hidden" value="<%= item.uuid %>" name="itemuuid">

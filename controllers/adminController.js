@@ -104,6 +104,7 @@ exports.addItemView = (req, res, next) => {
 
 exports.saveNewItem = (req, res, next) => {
   errorsArray.length  = 0;
+  const newstatus        = req.body.status;
   const newtags          = req.body.tags;
   const newimageUrl      = req.body.imageUrl;
   const newprice         = req.body.price;
@@ -112,6 +113,7 @@ exports.saveNewItem = (req, res, next) => {
   const newuuid          = cryptoController.getNewUUID();
 
   const item = new Item({
+    status:       newstatus,
     tags:         newtags,
     imageUrl:     newimageUrl,
     price:        newprice,
@@ -154,6 +156,7 @@ exports.editItemByUUID = (req, res, next) => {
 
 exports.updateItemByUUID = (req, res, next) => {
   errorsArray.length = 0;
+  const newstatus =       req.body.status;
   const newtags =         req.body.tags;
   const newimageUrl =     req.body.imageUrl;
   const newprice =        req.body.price;
@@ -162,6 +165,7 @@ exports.updateItemByUUID = (req, res, next) => {
 
   const itemUUID = req.body.itemuuid;
   Item.findOne({uuid: itemUUID}).then(item => {
+      item.status =       newstatus;
       item.tags =         newtags;
       item.imageUrl =     newimageUrl;
       item.price =        newprice;
@@ -187,6 +191,40 @@ exports.deleteItemByUUID = (req, res, next) => {
   })
   .catch(err => {
     console.log('deleteItem: ', err);
+    errorsArray.push(err);
+  });
+};
+
+exports.insertUUIDtoAllItems = (req, res, next) => {
+  errorsArray.length = 0;
+  const itemUUID = req.body.itemuuid;
+  Item.find().then(items => {
+    items.forEach(item => {
+      item.uuid = cryptoController.getNewUUID();
+      item.save();
+    });
+    console.log('Called insertUUIDtoAllItems');
+    res.redirect('/admin/item-list');
+  })
+  .catch(err => {
+    console.log('ERROR - insertUUIDtoAllItems: ', err);
+    errorsArray.push(err);
+  });
+};
+
+exports.makeAllItemsActive = (req, res, next) => {
+  errorsArray.length = 0;
+  const itemUUID = req.body.itemuuid;
+  Item.find().then(items => {
+    items.forEach(item => {
+      item.status = 'active';
+      item.save();
+    });
+    console.log('Called makeAllItemsActive');
+    res.redirect('/admin/item-list');
+  })
+  .catch(err => {
+    console.log('ERROR - makeAllItemsActive: ', err);
     errorsArray.push(err);
   });
 };
@@ -235,6 +273,7 @@ exports.addUserView = (req, res, next) => {
 
 exports.saveNewUser = (req, res, next) => {
   errorsArray.length = 0;
+  const newstatus =   req.body.status;
   const newname =   req.body.name;
   const newemail =  req.body.email;
   const newrole =   req.body.role;
@@ -242,6 +281,7 @@ exports.saveNewUser = (req, res, next) => {
   const newuuid =   cryptoController.getNewUUID();
 
   const user = new User({
+    status: newstatus,
     name:   newname,
     email:  newemail,
     role:   newrole,
@@ -261,7 +301,7 @@ exports.saveNewUser = (req, res, next) => {
 exports.editUserByUUID = (req, res, next) => {
   errorsArray.length = 0;
   const userUUID = req.params.useruuid;
-  Item.findOne({uuid: userUUID}).then(user => {
+  User.findOne({uuid: userUUID}).then(user => {
       res.render('adminViews/adminEditUserView', {
         pageTitle: 'Edit User',
         path: '/admin/edit-user',
@@ -278,22 +318,23 @@ exports.editUserByUUID = (req, res, next) => {
 
 exports.updateUserByUUID = (req, res, next) => {
   errorsArray.length = 0;
+  const newstatus = req.body.status;
   const newname =   req.body.name;
   const newemail =  req.body.email;
   const newrole =   req.body.role;
   const newcart =   req.body.cart;
 
   const userUUID = req.body.useruuid;
-  Item.findOne({uuid: userUUID}).then(user => {
-      user.name =   newname;
-      user.email =  newemail;
-      user.role =   newrole;
-      user.cart =   newcart;
+  User.findOne({uuid: userUUID}).then(user => {
+    user.status = newstatus,
+    user.name =   newname;
+    user.email =  newemail;
+    user.role =   newrole;
+    user.cart =   newcart;
       return user.save();
     })
     .then(result => {
-      console.log('updateUserByUUID: ', result);
-      res.redirect('/admin/edit-user/' + itemUUID);
+      res.redirect('/admin/user-list');
     })
     .catch(err => {
       console.log('updateUserByUUID: ', err);

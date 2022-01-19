@@ -79,14 +79,3 @@ exports.filterItemsByTag = (req, res, next) => {
   res.redirect('/store/item-list');
 };
 
-exports.insertUUIDtoAllItems = () => {
-  errorsArray.length = 0;
-  const cryptoController = require(APP_CWD + '/controllers/cryptoController');
-  Item.find().then(items => {
-    items.forEach(item => {
-      item.uuid = cryptoController.getNewUUID();
-      item.save();
-    });
-  });
-  return 'Called: insertUUIDtoAllItems';
-};

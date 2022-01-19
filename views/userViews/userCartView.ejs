@@ -7,36 +7,13 @@
         <div class="backdrop"></div>
         <%- include('../includes/navigationInclude.ejs') %>
             <main>
-                <div class="filter">
-                    <div class="filter_form_container">
-                        <form method="POST" action="/store/filter-by-tag" class="filter_form">
-                        <input type="text" name="itemTag" placeholder='Tag'>
-                        <button type="submit" value="Submit">Submit-Reset</button>
-                        </form>
-                    </div>
-                </div>
                 <% if (items) { %>
                     <div class="grid">
                         <% for (let item of items) { %>
-                            <% if (item.status === 'inactive') { %>
-                                <% continue %>
-                            <% } %>
-                            <% if (itemTagsArray.length > 0) { %>
-                                <% let tagCount = 0; %>
-                                <% for (let itemTag of item.tags) { %>
-                                    <% if (itemTagsArray.includes(itemTag)) { %>
-                                        <% tagCount = tagCount + 1; %>
-                                    <% } %>
-                                <% } %>
-                                <% if (tagCount === 0) { %>
-                                    <% continue %>
-                                <% } %>
-                            <% } %>
-
                             <article class="card item">
                                 <header class="card__header">
                                     <h1 class="item__name">
-                                        <a href="/store/item-list/<%= item.uuid %>"><%= item.name %></a>
+                                        <a href="/user/cart/item-list/<%= item.uuid %>"><%= item.name %></a>
                                     </h1>
                                 </header>
                                 <div class="card__image">
@@ -50,11 +27,6 @@
                                         <%= item.description %>
                                     </p>
                                 </div>
-                                <% if(item.tags.length > 0){ %>
-                                    <div class="card__content">
-                                        <p class="item__tags">Tags: <%= item.tags %> </p>
-                                    </div>
-                                <% } %>
                             </article>
                         <% } %>
                     </div>
