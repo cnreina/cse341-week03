@@ -13,12 +13,13 @@ exports.getHome = (req, res, next) => {
   Item.find().then(items => {
       res.render('homeViews/indexView', {
         items: items,
-        pageTitle: 'Home',
-        path: '/store',
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length,
-        itemTagsArray: itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        pageTitle:          'Home',
+        path:               '/store',
+        errorsArray:        errorsArray,
+        errorsArrayCount:   errorsArray.length,
+        itemTagsArray:      itemTagsArray,
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -37,12 +38,13 @@ exports.getAllItems = (req, res, next) => {
   Item.find().then(items => {
       res.render('storeViews/itemsView', {
         items: items,
-        pageTitle: 'All items',
-        path: '/store/item-list',
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length,
-        itemTagsArray: itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        pageTitle:          'All items',
+        path:               '/store/item-list',
+        errorsArray:        errorsArray,
+        errorsArrayCount:   errorsArray.length,
+        itemTagsArray:      itemTagsArray,
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -56,12 +58,13 @@ exports.getItemByUUID = (req, res, next) => {
   Item.findOne({uuid: itemUUID}).then(item => {
       res.render('storeViews/itemDetailView', {
         item: item,
-        pageTitle: 'Item',
-        path: '/store/item-list',
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length,
-        itemTagsArray: itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        pageTitle:          'Item',
+        path:               '/store/item-list',
+        errorsArray:        errorsArray,
+        errorsArrayCount:   errorsArray.length,
+        itemTagsArray:      itemTagsArray,
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {

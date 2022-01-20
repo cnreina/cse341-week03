@@ -43,48 +43,60 @@ const fs              = require('fs');
 const cors            = require('cors');
 
 const APP_CWD         = process.cwd();
-const LOCAL_PORT      = 3000;
+const PORT            = process.env.PORT || 3000;
 const HEROKU_APP_URL  = "https://cse341nodejsapp.herokuapp.com/";
 const CORS_OPTIONS    = { origin: HEROKU_APP_URL, optionsSuccessStatus: 200 };
 const FILE_PATH       = APP_CWD + '/data/mongodbstring.txt';
+let   MONGODB_URI     = '';
+let   sessionStore    = '';
+const MONGODB_OPTIONS = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  family: 4
+};
 
 // routes
 const errorRoutes     = require(APP_CWD + '/routes/errorRoutes');
 const itemRoutes      = require(APP_CWD + '/routes/itemRoutes');
 const adminRoutes     = require(APP_CWD + '/routes/adminRoutes');
-const userRoutes     = require(APP_CWD + '/routes/userRoutes');
+const userRoutes      = require(APP_CWD + '/routes/userRoutes');
+const authRoutes      = require(APP_CWD + '/routes/authRoutes');
 
 // app
 const app = express();
-const sessionStore = new MongoDBStore();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'my secret',
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore})
+);
+
+app.use(authRoutes);
 app.use(adminRoutes);
 app.use(itemRoutes);
 app.use(userRoutes);
 app.use(errorRoutes);
 app.use(cors(CORS_OPTIONS));
 
-// prepare mongoDB connection
+// mongoDB connection
 fs.readFile(FILE_PATH, (err, fileContent) => {
   if (err) {
     console.log(err);
   } else {
+    MONGODB_URI = process.env.MONGODB_URL || fileContent.toString();
+    sessionStore = new MongoDBStore({
+      uri: MONGODB_URI,
+      collection: 'sessions'
+    });
+    
     // START SERVER
-    const MONGODB_OPTIONS = {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      family: 4
-    };
-    // Use || to initialize PORT's value to the first defined variable.
-    // When app is run on Heroku, process.env.PORT is defined and passed to .listen().
-    const MONGODB_URL = process.env.MONGODB_URL || fileContent.toString();
-    const PORT = process.env.PORT || LOCAL_PORT;
-    mongoose.connect(MONGODB_URL, MONGODB_OPTIONS)
-    .then(result => {
+    mongoose.connect(MONGODB_URI, MONGODB_OPTIONS).then(result => {
       app.listen(PORT);
     })
     .catch(err => {
@@ -92,3 +104,4 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     });
   }
 });
+

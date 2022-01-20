@@ -19,7 +19,8 @@ exports.adminView = (req, res, next) => {
         errorsArray:        errorsArray,
         errorsArrayCount:   errorsArray.length,
         itemTagsArray:      itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -36,7 +37,8 @@ exports.adminStoreView = (req, res, next) => {
     pageTitle:          'Store Admin',
     path:               '/admin/store',
     errorsArray:        errorsArray,
-    errorsArrayCount:   errorsArray.length
+    errorsArrayCount:   errorsArray.length,
+    isAuthenticated:    req.session.isLoggedIn
   });
 };
 
@@ -52,10 +54,11 @@ exports.getAllItems = (req, res, next) => {
         items: items,
         pageTitle: 'All items',
         path: '/admin/item-list',
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length,
-        itemTagsArray: itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        errorsArray:        errorsArray,
+        errorsArrayCount:   errorsArray.length,
+        itemTagsArray:      itemTagsArray,
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -71,10 +74,11 @@ exports.getItemByUUID = (req, res, next) => {
         item: item,
         pageTitle: 'Item',
         path: '/admin/item-list',
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length,
-        itemTagsArray: itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        errorsArray:        errorsArray,
+        errorsArrayCount:   errorsArray.length,
+        itemTagsArray:      itemTagsArray,
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -98,7 +102,8 @@ exports.addItemView = (req, res, next) => {
     pageTitle:          'New Item',
     path:               '/admin/add-item',
     errorsArray:        errorsArray,
-    errorsArrayCount:   errorsArray.length
+    errorsArrayCount:   errorsArray.length,
+    isAuthenticated:    req.session.isLoggedIn
   });
 };
 
@@ -145,7 +150,8 @@ exports.editItemByUUID = (req, res, next) => {
         errorsArray:        errorsArray,
         errorsArrayCount:   errorsArray.length,
         itemTagsArray:      itemTagsArray,
-        itemTagsArrayCount: itemTagsArray.length
+        itemTagsArrayCount: itemTagsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -197,7 +203,6 @@ exports.deleteItemByUUID = (req, res, next) => {
 
 exports.insertUUIDtoAllItems = (req, res, next) => {
   errorsArray.length = 0;
-  const itemUUID = req.body.itemuuid;
   Item.find().then(items => {
     items.forEach(item => {
       item.uuid = cryptoController.getNewUUID();
@@ -214,7 +219,6 @@ exports.insertUUIDtoAllItems = (req, res, next) => {
 
 exports.makeAllItemsActive = (req, res, next) => {
   errorsArray.length = 0;
-  const itemUUID = req.body.itemuuid;
   Item.find().then(items => {
     items.forEach(item => {
       item.status = 'active';
@@ -240,7 +244,8 @@ exports.adminUserView = (req, res, next) => {
     pageTitle:          'Store Admin',
     path:               '/admin/user',
     errorsArray:        errorsArray,
-    errorsArrayCount:   errorsArray.length
+    errorsArrayCount:   errorsArray.length,
+    isAuthenticated:    req.session.isLoggedIn
   });
 };
 
@@ -252,7 +257,8 @@ exports.adminUsersView = (req, res, next) => {
         pageTitle:          'Users',
         path:               '/admin/user-list',
         errorsArray:        errorsArray,
-        errorsArrayCount:   errorsArray.length
+        errorsArrayCount:   errorsArray.length,
+        isAuthenticated:    req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -267,18 +273,19 @@ exports.addUserView = (req, res, next) => {
     pageTitle:          'Add User',
     path:               '/admin/add-newuser',
     errorsArray:        errorsArray,
-    errorsArrayCount:   errorsArray.length
+    errorsArrayCount:   errorsArray.length,
+    isAuthenticated:    req.session.isLoggedIn
   });
 };
 
 exports.saveNewUser = (req, res, next) => {
   errorsArray.length = 0;
   const newstatus =   req.body.status;
-  const newname =   req.body.name;
-  const newemail =  req.body.email;
-  const newrole =   req.body.role;
-  const newcart =   req.body.cart;
-  const newuuid =   cryptoController.getNewUUID();
+  const newname =     req.body.name;
+  const newemail =    req.body.email;
+  const newrole =     req.body.role;
+  const newcart =     req.body.cart;
+  const newuuid =     cryptoController.getNewUUID();
 
   const user = new User({
     status: newstatus,
@@ -304,10 +311,11 @@ exports.editUserByUUID = (req, res, next) => {
   User.findOne({uuid: userUUID}).then(user => {
       res.render('adminViews/adminEditUserView', {
         pageTitle: 'Edit User',
-        path: '/admin/edit-user',
-        user: user,
-        errorsArray: errorsArray,
-        errorsArrayCount: errorsArray.length
+        path:             '/admin/edit-user',
+        user:             user,
+        errorsArray:      errorsArray,
+        errorsArrayCount: errorsArray.length,
+        isAuthenticated:  req.session.isLoggedIn
       });
     })
     .catch(err => {

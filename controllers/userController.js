@@ -14,7 +14,8 @@ exports.userView = (req, res, next) => {
         pageTitle:        'User View',
         path:             '/user',
         errorsArray:      errorsArray,
-        errorsArrayCount: errorsArray.length
+        errorsArrayCount: errorsArray.length,
+        isAuthenticated:  req.session.isLoggedIn
       });
     })
     .catch(err => {
