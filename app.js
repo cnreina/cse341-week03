@@ -34,8 +34,10 @@
 
 // includes
 const express         = require('express');
+const session         = require('express-session');
 const bodyParser      = require('body-parser');
 const mongoose        = require('mongoose');
+const MongoDBStore    = require('connect-mongodb-session')(session);
 const path            = require('path');
 const fs              = require('fs');
 const cors            = require('cors');
@@ -54,6 +56,8 @@ const userRoutes     = require(APP_CWD + '/routes/userRoutes');
 
 // app
 const app = express();
+const sessionStore = new MongoDBStore();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
