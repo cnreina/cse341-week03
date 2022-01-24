@@ -104,4 +104,3 @@ fs.readFile(FILE_PATH, (err, fileContent) => {
     });
   }
 });
-
